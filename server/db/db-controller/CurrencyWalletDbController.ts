@@ -1,0 +1,9 @@
+
+import {DBController, IOptionsDB} from "imx-db-adapter";
+import {CurrencyWallet} from "../../domen/crypto-currency/CurrencyWallet";
+
+export class CurrencyWalletDbController extends DBController<CurrencyWallet> {
+    constructor(config: IOptionsDB) {
+        super(config);
+    }
+}

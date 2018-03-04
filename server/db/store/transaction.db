@@ -1,0 +1,15 @@
+{"currencySubject":"ZEC","typeOperation":"BUY","amount":0.033,"priceUSD":562.3,"priceBTC":0.0334,"currencyObject":"USDT","priceObjectCurrency":562.3,"description":"EXMO","_id":"7TiKBlDJwQkgUefa"}
+{"currencySubject":"XMR","typeOperation":"BUY","amount":0.05060823,"priceUSD":315.81,"priceBTC":0.02342,"currencyObject":"USDT","priceObjectCurrency":315.81,"description":"EXMO","_id":"7xPclPUZ69PqAmDj"}
+{"currencySubject":"USDT","typeOperation":"DEPOSIT","amount":390,"priceUSD":1,"_id":"CRIhs6RUYmk9yW6I"}
+{"currencySubject":"ZEC","typeOperation":"BUY","amount":0.067,"priceUSD":299,"priceBTC":0.0235,"currencyObject":"USDT","priceObjectCurrency":299,"description":"EXMO","_id":"YbOqtJJyCkqyPRx3"}
+{"currencySubject":"BCH","typeOperation":"BUY","amount":0.00998,"priceUSD":2420,"priceBTC":0.1607,"currencyObject":"BTC","priceObjectCurrency":0.1607,"description":"EXMO","_id":"zPoRgDFmNGTnuhCs"}
+{"$$deleted":true,"_id":"7TiKBlDJwQkgUefa"}
+{"$$deleted":true,"_id":"7xPclPUZ69PqAmDj"}
+{"$$deleted":true,"_id":"CRIhs6RUYmk9yW6I"}
+{"$$deleted":true,"_id":"YbOqtJJyCkqyPRx3"}
+{"$$deleted":true,"_id":"zPoRgDFmNGTnuhCs"}
+{"currencySubject":"USDT","typeOperation":"DEPOSIT","amount":390,"priceUSD":1,"_id":"PA0JLAEJcShVkwMt"}
+{"currencySubject":"ZEC","typeOperation":"BUY","amount":0.067,"priceUSD":299,"priceBTC":0.0235,"currencyObject":"USDT","priceObjectCurrency":299,"description":"EXMO","_id":"6Motgc46lne40Kl8"}
+{"currencySubject":"ZEC","typeOperation":"BUY","amount":0.033,"priceUSD":562.3,"priceBTC":0.0334,"currencyObject":"USDT","priceObjectCurrency":562.3,"description":"EXMO","_id":"dXsCic0sQdOlUCfg"}
+{"currencySubject":"BCH","typeOperation":"BUY","amount":0.00998,"priceUSD":2420,"priceBTC":0.1607,"currencyObject":"BTC","priceObjectCurrency":0.1607,"description":"EXMO","_id":"WwH6vjLa47KPlcrm"}
+{"currencySubject":"XMR","typeOperation":"BUY","amount":0.05060823,"priceUSD":315.81,"priceBTC":0.02342,"currencyObject":"USDT","priceObjectCurrency":315.81,"description":"EXMO","_id":"8vCCxEsGgdy1RVIS"}

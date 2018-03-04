@@ -1,0 +1,49 @@
+[
+  {
+    "currencySubject": "USDT",
+    "typeOperation": "DEPOSIT",
+    "amount": 390,
+    "priceUSD": 1
+  },
+  {
+    "currencySubject": "ZEC",
+    "typeOperation": "BUY",
+    "amount": 0.067,
+    "priceUSD": 299,
+    "priceBTC": 0.02350,
+    "currencyObject": "USDT",
+    "priceObjectCurrency": 299,
+    "description": "EXMO"
+  },
+  {
+    "currencySubject": "ZEC",
+    "typeOperation": "BUY",
+    "amount": 0.033,
+    "priceUSD": 562.3,
+    "priceBTC": 0.03340,
+    "currencyObject": "USDT",
+    "priceObjectCurrency": 562.3,
+    "description": "EXMO"
+  },
+  {
+    "currencySubject": "BCH",
+    "typeOperation": "BUY",
+    "amount": 0.00998,
+    "priceUSD": 2420,
+    "priceBTC": 0.1607,
+    "currencyObject": "BTC",
+    "priceObjectCurrency": 0.1607,
+    "description": "EXMO"
+  },
+  {
+    "currencySubject": "XMR",
+    "typeOperation": "BUY",
+    "amount": 0.05060823,
+    "priceUSD": 315.81,
+    "priceBTC": 0.02342,
+    "currencyObject": "USDT",
+    "priceObjectCurrency": 315.81,
+    "description": "EXMO"
+  }
+]
+

@@ -1,0 +1,10 @@
+{
+  "extends": [
+    "../tslint.json"
+  ],
+  "rules": {
+    "adjacent-overload-signatures": false,
+    "no-string-literal": false,
+    "object-literal-shorthand": false
+  }
+}
