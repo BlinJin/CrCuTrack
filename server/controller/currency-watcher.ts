@@ -1,3 +1,4 @@
+import chalk from "chalk";
 import {ISystemLogger, ModeLogger, SystemLogger} from "imx-logger";
 import fetch from "node-fetch";
 import * as util from "util";
@@ -14,35 +15,47 @@ const logger: ISystemLogger = new SystemLogger({
 export class CurrencyWatcher {
 	public refuseCurrencyWatcher: Subject<void> = new Subject<void>();
 
-	public activateCurrencyWatcher() {
+	public activateCurrencyWatcher(): Observable<Map<string, ICryptoCurrency>> {
 		this.refuseCurrencyWatcher.next();
 		const timerRequest = Observable.interval(1000);
-		timerRequest.switchMap(() => Observable.fromPromise(fetch(COINMARKETCAP_LIST_CURRENCIES)))
-			.takeUntil(this.refuseCurrencyWatcher)
-			.subscribe((result: any) => {
-			result.json().then((json: any) => {
-				const cryptoCurrency: Array<ICryptoCurrency> = json.slice(0, 30)
-					.map((elem: any) => new CryptoCurrency(elem));
-				this.display(cryptoCurrency);
-			});
-		});
+		return timerRequest.switchMap(() => Observable.fromPromise(
+			fetch(COINMARKETCAP_LIST_CURRENCIES)
+				.then((result) => result.json())
+				.then((json: any) => {
+					return json.slice(0, 30)
+						.map((elem: any) => new CryptoCurrency(elem));
+				})
+			)
+			.map((list: Array<ICryptoCurrency>) => {
+				const map: Map<string, ICryptoCurrency> = new Map<string, ICryptoCurrency>();
+				list.forEach((elem) => {
+					map.set(elem.symbol, elem);
+				});
+				return map;
+			})
+			.takeUntil(this.refuseCurrencyWatcher));
 	}
 
 	public deactivateCurrerncyWatcher() {
 		this.refuseCurrencyWatcher.next();
 	}
 
-	private display(cryptos: Array<ICryptoCurrency>) {
-		logger.info(util.inspect(cryptos.map((currency: ICryptoCurrency) =>
-			`${currency.symbol} = ${currency.priceUsd}`),
-			{colors: true, showHidden: false, depth: 3}));
+	public display(cryptosMap: Map<string, ICryptoCurrency>) {
+		let final: string = "\n";
+		for (const [key, value] of cryptosMap) {
+			final += chalk.magenta(`${key} - ${value.priceBtc} B, ${value.priceUsd} USD` + "\n");
+		}
+
+		logger.info(chalk.magenta(final));
 	}
 
 }
 
-// const watcher: CurrencyWatcher = new CurrencyWatcher();
-// watcher.activateCurrencyWatcher();
-//
-// setTimeout(() => {
-// 	watcher.deactivateCurrerncyWatcher();
-// }, 5000);
+const watcher: CurrencyWatcher = new CurrencyWatcher();
+watcher.activateCurrencyWatcher().subscribe((result: any) => {
+		watcher.display(result);
+});
+
+setTimeout(() => {
+	watcher.deactivateCurrerncyWatcher();
+}, 5000);
