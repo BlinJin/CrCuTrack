@@ -51,11 +51,11 @@ export class CurrencyWatcher {
 
 }
 
-const watcher: CurrencyWatcher = new CurrencyWatcher();
-watcher.activateCurrencyWatcher().subscribe((result: any) => {
-		watcher.display(result);
-});
-
-setTimeout(() => {
-	watcher.deactivateCurrerncyWatcher();
-}, 5000);
+// const watcher: CurrencyWatcher = new CurrencyWatcher();
+// watcher.activateCurrencyWatcher().subscribe((result: any) => {
+// 		watcher.display(result);
+// });
+//
+// setTimeout(() => {
+// 	watcher.deactivateCurrerncyWatcher();
+// }, 5000);
