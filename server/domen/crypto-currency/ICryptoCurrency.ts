@@ -3,8 +3,8 @@ export interface ICryptoCurrency {
     name: string;
     symbol: string;
     rank: string;
-    priceUsd: string;
-    priceBtc: string;
+    priceUsd: number;
+    priceBtc: number;
     volumeUsd24h: string;
     marketCapUsd: string;
     availableSupply: string;

@@ -7,8 +7,8 @@ export class CryptoCurrency implements ICryptoCurrency {
 	public name: string;
 	public symbol: CRYPTO_SYMBOL;
 	public rank: string;
-	public priceUsd: string;
-	public priceBtc: string;
+	public priceUsd: number;
+	public priceBtc: number;
 	public volumeUsd24h: string;
 	public marketCapUsd: string;
 	public availableSupply: string;
@@ -25,8 +25,8 @@ export class CryptoCurrency implements ICryptoCurrency {
 			this.name = rawData.name;
 			this.symbol = rawData.symbol;
 			this.rank = rawData.rank;
-			this.priceUsd = rawData.price_usd;
-			this.priceBtc = rawData.price_btc;
+			this.priceUsd = parseFloat(rawData.price_usd);
+			this.priceBtc = parseFloat(rawData.price_btc);
 			this.volumeUsd24h = rawData["24h_volume_usd"];
 			this.marketCapUsd = rawData.market_cap_usd;
 			this.availableSupply = rawData.available_supply;

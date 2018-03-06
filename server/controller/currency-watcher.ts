@@ -17,7 +17,8 @@ export class CurrencyWatcher {
 
 	public activateCurrencyWatcher(): Observable<Map<string, ICryptoCurrency>> {
 		this.refuseCurrencyWatcher.next();
-		const timerRequest = Observable.interval(1000);
+		const interval: number = 2000;
+		const timerRequest = Observable.interval(interval);
 		return timerRequest.switchMap(() => Observable.fromPromise(
 			fetch(COINMARKETCAP_LIST_CURRENCIES)
 				.then((result) => result.json())
