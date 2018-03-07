@@ -18,6 +18,7 @@ export class Transaction implements ITransaction {
 	public priceUSD?: number;
 	public currencyObject: CRYPTO_SYMBOL;
 	public priceObjectCurrency: number;
+	public date: string;
 
 	constructor(transaction: ITransaction) {
 		if (isPresent(transaction)) {
@@ -28,6 +29,7 @@ export class Transaction implements ITransaction {
 			this.priceUSD = transaction.priceUSD;
 			this.currencyObject = transaction.currencyObject as CRYPTO_SYMBOL;
 			this.priceObjectCurrency = transaction.priceObjectCurrency;
+			this.date = transaction.date;
 		}
 	}
 }
