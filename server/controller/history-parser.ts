@@ -8,6 +8,11 @@
 
 import {ISystemLogger, ModeLogger, SystemLogger} from "imx-logger";
 import fetch from "node-fetch";
+import * as util from "util";
+import * as zlib from "zlib";
+import {Gunzip} from "zlib";
+import {CRYPTO_SYMBOL} from "../domen/crypto-currency/CurrencySymbol";
+import {HistoryDay} from "../domen/history/HistoryDay";
 import {COINMARKETCAP_LIST_HISTORY_FUNC} from "./end-points";
 
 const logger: ISystemLogger = new SystemLogger({
@@ -16,19 +21,75 @@ const logger: ISystemLogger = new SystemLogger({
 	section: "currency:history-parser"
 });
 
+const headerTable: Array<string> = ["date", "open", "high", "low", "close", "volume", "marketCup"];
+
 export class HistoryParser {
 
-	public async getHistory(): Promise<string> {
+	private symbolCurrency: CRYPTO_SYMBOL;
+
+	public async getHistory(symbol: CRYPTO_SYMBOL): Promise<string> {
+		this.symbolCurrency = symbol;
 		const idCurrency: string = "bitcoin";
-		const dateFrom: string = "20180301";
+		const dateFrom: string = "20170301";
 		const dateTo: string = "20180308";
 		const urlToRequest: string = COINMARKETCAP_LIST_HISTORY_FUNC(idCurrency, dateFrom, dateTo);
 		const response: any = await fetch(urlToRequest);
-		return response;
+		return response.buffer();
+	}
+
+	public findTable(source: string): string {
+		const index1: number = source.indexOf("table-responsive");
+		const index2: number = source.indexOf("<thead>", index1);
+		const index3: number = source.indexOf("</tbody>", index2);
+		const trimmedText: string = source.substr(index2, index3 - index2 + "</tbody>".length);
+		return trimmedText;
+	}
+
+	public parseRaw(source: string): Array<any> {
+		let positionFromToFind: number = 0;
+		const results: Array<any> = [];
+		while (this.isExistRaw(source, positionFromToFind)) {
+			const index1: number = source.indexOf("<tr class=\"text-right\">", positionFromToFind);
+			const index2: number = source.indexOf("</tr>", index1);
+			const raw: string = source.substr(index1, index2 - index1 + "</tr>".length);
+			positionFromToFind = index2 + "</tr>".length;
+			results.push(this.parseCell(raw));
+		}
+		return results;
+	}
+
+	public parseCell(raw: string): any {
+		let positionFromToFind: number = 0;
+		const results: any = {};
+		let index: number = 0;
+		while (this.isExistCell(raw, positionFromToFind)) {
+			const index1: number = raw.indexOf("td", positionFromToFind);
+			const index2: number = raw.indexOf(">", index1);
+			const index3: number = raw.indexOf("</td>", index2);
+			const cellVal: string = raw.substr(index2 + 1, index3 - index2 - 1);
+			positionFromToFind = index3 + "</td>".length;
+			results[headerTable[index]] = cellVal;
+			index++;
+		}
+		results["symbol"] = this.symbolCurrency;
+		results["name"] = this.symbolCurrency;
+		results["id"] = this.symbolCurrency;
+		return new HistoryDay(results);
+	}
+
+	public isExistCell(raw: string, currentIndex: number): boolean {
+		return raw.indexOf("td", currentIndex) !== -1;
+	}
+
+	public isExistRaw(table: string, currentIndex: number): boolean {
+		return table.indexOf("<tr class=\"text-right\">", currentIndex) !== -1;
 	}
 }
 
 (async () => {
 	const historyParser: HistoryParser = new HistoryParser();
-	logger.info(await historyParser.getHistory());
+	const historyPage: string = await historyParser.getHistory(CRYPTO_SYMBOL.BTC);
+	const tableWithData: string = historyParser.findTable(historyPage.toString());
+	const result:  Array<any> = historyParser.parseRaw(tableWithData);
+	logger.info(util.inspect(result.slice(result.length - 10, result.length), {colors: true, depth: 4, showHidden: true}));
 })();
