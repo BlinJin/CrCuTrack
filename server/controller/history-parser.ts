@@ -11,7 +11,10 @@ import fetch from "node-fetch";
 import * as util from "util";
 import * as zlib from "zlib";
 import {Gunzip} from "zlib";
-import {CRYPTO_SYMBOL} from "../domen/crypto-currency/CurrencySymbol";
+import {DbControllersFactory} from "../db/db-controller/DbControllersFactory";
+import {DBKey} from "../db/db-controller/DBKey";
+import {HistoryDbController} from "../db/db-controller/HistoryDbController";
+import {CRYPTO_SYMBOL, getCurrencyIDBySymbol} from "../domen/crypto-currency/CurrencySymbol";
 import {HistoryDay} from "../domen/history/HistoryDay";
 import {COINMARKETCAP_LIST_HISTORY_FUNC} from "./end-points";
 
@@ -22,6 +25,8 @@ const logger: ISystemLogger = new SystemLogger({
 });
 
 const headerTable: Array<string> = ["date", "open", "high", "low", "close", "volume", "marketCup"];
+const constDateFrom: string = "20130310"
+const constDateTo: string = "20180310"
 
 export class HistoryParser {
 
@@ -29,9 +34,9 @@ export class HistoryParser {
 
 	public async getHistory(symbol: CRYPTO_SYMBOL): Promise<string> {
 		this.symbolCurrency = symbol;
-		const idCurrency: string = "bitcoin";
-		const dateFrom: string = "20170301";
-		const dateTo: string = "20180308";
+		const idCurrency: string = getCurrencyIDBySymbol(symbol);
+		const dateFrom: string = constDateFrom;
+		const dateTo: string = constDateTo;
 		const urlToRequest: string = COINMARKETCAP_LIST_HISTORY_FUNC(idCurrency, dateFrom, dateTo);
 		const response: any = await fetch(urlToRequest);
 		return response.buffer();
@@ -45,7 +50,7 @@ export class HistoryParser {
 		return trimmedText;
 	}
 
-	public parseRaw(source: string): Array<any> {
+	public parseRaws(source: string): Array<HistoryDay> {
 		let positionFromToFind: number = 0;
 		const results: Array<any> = [];
 		while (this.isExistRaw(source, positionFromToFind)) {
@@ -58,7 +63,7 @@ export class HistoryParser {
 		return results;
 	}
 
-	public parseCell(raw: string): any {
+	public parseCell(raw: string): HistoryDay {
 		let positionFromToFind: number = 0;
 		const results: any = {};
 		let index: number = 0;
@@ -86,10 +91,31 @@ export class HistoryParser {
 	}
 }
 
-(async () => {
+const generateSymbolHistory = async (symbol: CRYPTO_SYMBOL) => {
+	console.time(symbol);
 	const historyParser: HistoryParser = new HistoryParser();
-	const historyPage: string = await historyParser.getHistory(CRYPTO_SYMBOL.BTC);
+	const historyPage: string = await historyParser.getHistory(symbol);
 	const tableWithData: string = historyParser.findTable(historyPage.toString());
-	const result:  Array<any> = historyParser.parseRaw(tableWithData);
-	logger.info(util.inspect(result.slice(result.length - 10, result.length), {colors: true, depth: 4, showHidden: true}));
+	const result: Array<HistoryDay> = historyParser.parseRaws(tableWithData);
+	const dbHistoryController: HistoryDbController =
+		DbControllersFactory.getDbController(DBKey.HISTORY, symbol);
+	result.forEach((elem: HistoryDay) => {
+		dbHistoryController.insert(elem);
+		// logger.info(util.inspect(elem,
+		// 	{colors: true, depth: 4, showHidden: true}));
+	});
+	console.timeEnd(symbol);
+}
+
+(async () => {
+	try {
+		const currencyHistoryFunctions: any = [];
+		for (const currency in CRYPTO_SYMBOL) {
+			currencyHistoryFunctions.push(generateSymbolHistory(currency as CRYPTO_SYMBOL));
+		}
+		await Promise.all(currencyHistoryFunctions);
+	}
+	catch (err) {
+		logger.error(err);
+	}
 })();

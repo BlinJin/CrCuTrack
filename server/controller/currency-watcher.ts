@@ -43,8 +43,10 @@ export class CurrencyWatcher {
 
 	public display(cryptosMap: Map<string, ICryptoCurrency>) {
 		let final: string = "\n";
+		let symbolToId: string = "\n";
 		for (const [key, value] of cryptosMap) {
-			final += chalk.magenta(`${key} - ${value.priceBtc} B, ${value.priceUsd} USD` + "\n");
+			final += `${key} - ${value.priceBtc} B, ${value.priceUsd} USD ` + "\n";
+			symbolToId += `${value.symbol} - ${value.id}` + "\n";
 		}
 
 		logger.info(chalk.magenta(final));
@@ -52,11 +54,11 @@ export class CurrencyWatcher {
 
 }
 
-// const watcher: CurrencyWatcher = new CurrencyWatcher();
-// watcher.activateCurrencyWatcher().subscribe((result: any) => {
-// 		watcher.display(result);
-// });
-//
-// setTimeout(() => {
-// 	watcher.deactivateCurrerncyWatcher();
-// }, 5000);
+const watcher: CurrencyWatcher = new CurrencyWatcher();
+watcher.activateCurrencyWatcher().subscribe((result: any) => {
+		watcher.display(result);
+});
+
+setTimeout(() => {
+	watcher.deactivateCurrerncyWatcher();
+}, 5000);

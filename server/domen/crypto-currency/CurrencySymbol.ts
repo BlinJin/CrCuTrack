@@ -107,3 +107,103 @@ export enum CRYPTO_SYMBOL {
 	AGI = "AGI",
 	VTC = "VTC"
 }
+
+export function getCurrencyIDBySymbol(symbol: CRYPTO_SYMBOL): string {
+	switch (symbol) {
+		case CRYPTO_SYMBOL.BTC: {
+			return "bitcoin";
+		}
+		case CRYPTO_SYMBOL.ETH: {
+			return "ethereum";
+		}
+		case CRYPTO_SYMBOL.XRP: {
+			return "ripple";
+		}
+		case CRYPTO_SYMBOL.BCH: {
+			return "bitcoin-cash";
+		}
+		case CRYPTO_SYMBOL.LTC: {
+			return "litecoin";
+		}
+		case CRYPTO_SYMBOL.NEO: {
+			return "neo";
+		}
+		case CRYPTO_SYMBOL.ADA: {
+			return "cardano";
+		}
+		case CRYPTO_SYMBOL.XLM: {
+			return "stellar";
+		}
+		case CRYPTO_SYMBOL.EOS: {
+			return "eos";
+		}
+		case CRYPTO_SYMBOL.XMR: {
+			return "monero";
+		}
+		case CRYPTO_SYMBOL.DASH: {
+			return "dash";
+		}
+		case CRYPTO_SYMBOL.MIOTA: {
+			return "iota";
+		}
+		case CRYPTO_SYMBOL.XEM: {
+			return "nem";
+		}
+		case CRYPTO_SYMBOL.TRX: {
+			return "tron";
+		}
+		case CRYPTO_SYMBOL.USDT: {
+			return "tether";
+		}
+		case CRYPTO_SYMBOL.ETC: {
+			return "ethereum-classic";
+		}
+		case CRYPTO_SYMBOL.VEN: {
+			return "vechain";
+		}
+		case CRYPTO_SYMBOL.LSK: {
+			return "lisk";
+		}
+		case CRYPTO_SYMBOL.LSK: {
+			return "lisk";
+		}
+		case CRYPTO_SYMBOL.NANO: {
+			return "nano";
+		}
+		case CRYPTO_SYMBOL.OMG: {
+			return "omisego";
+		}
+		case CRYPTO_SYMBOL.BTG: {
+			return "bitcoin-gold";
+		}
+		case CRYPTO_SYMBOL.QTUM: {
+			return "qtum";
+		}
+		case CRYPTO_SYMBOL.ZEC: {
+			return "zcash";
+		}
+		case CRYPTO_SYMBOL.ICX: {
+			return "icon";
+		}
+		case CRYPTO_SYMBOL.BNB: {
+			return "binance-coin";
+		}
+		case CRYPTO_SYMBOL.DGD: {
+			return "digixdao";
+		}
+		case CRYPTO_SYMBOL.STEEM: {
+			return "steem";
+		}
+		case CRYPTO_SYMBOL.BCN: {
+			return "bytecoin-bcn";
+		}
+		case CRYPTO_SYMBOL.PPT: {
+			return "populous";
+		}
+		case CRYPTO_SYMBOL.WAVES: {
+			return "waves";
+		}
+		default:
+			throw new Error("Unrecognized crypto " + symbol);
+	}
+}
