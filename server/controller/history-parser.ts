@@ -6,6 +6,7 @@
 //  Created   : 8.3.18 1.52
 //
 
+import {isPresent} from "imx-lang";
 import {ISystemLogger, ModeLogger, SystemLogger} from "imx-logger";
 import fetch from "node-fetch";
 import * as util from "util";
@@ -99,11 +100,12 @@ const generateSymbolHistory = async (symbol: CRYPTO_SYMBOL) => {
 	const result: Array<HistoryDay> = historyParser.parseRaws(tableWithData);
 	const dbHistoryController: HistoryDbController =
 		DbControllersFactory.getDbController(DBKey.HISTORY, symbol);
-	result.forEach((elem: HistoryDay) => {
-		dbHistoryController.insert(elem);
-		// logger.info(util.inspect(elem,
-		// 	{colors: true, depth: 4, showHidden: true}));
-	});
+	// result.forEach((elem: HistoryDay) => {
+	// 	dbHistoryController.insert(result);
+	// 	// logger.info(util.inspect(elem,
+	// 	// 	{colors: true, depth: 4, showHidden: true}));
+	// });
+	dbHistoryController.insert(result);
 	console.timeEnd(symbol);
 }
 
@@ -111,7 +113,13 @@ const generateSymbolHistory = async (symbol: CRYPTO_SYMBOL) => {
 	try {
 		const currencyHistoryFunctions: any = [];
 		for (const currency in CRYPTO_SYMBOL) {
-			currencyHistoryFunctions.push(generateSymbolHistory(currency as CRYPTO_SYMBOL));
+			const idCurrency: string = getCurrencyIDBySymbol(currency as CRYPTO_SYMBOL);
+			if (isPresent(idCurrency)) {
+				currencyHistoryFunctions.push(generateSymbolHistory(currency as CRYPTO_SYMBOL));
+			}
+			else {
+				logger.warn(`Doesn't exist ${currency}`);
+			}
 		}
 		await Promise.all(currencyHistoryFunctions);
 	}

@@ -33,7 +33,6 @@ export enum CRYPTO_SYMBOL {
 	DGD = "DGD",
 	BNB = "BNB",
 	STEEM = "STEEM",
-	XVG = "XVG",
 	STRAT = "STRAT",
 	BCN = "BCN",
 	PPT = "PPT",
@@ -204,6 +203,6 @@ export function getCurrencyIDBySymbol(symbol: CRYPTO_SYMBOL): string {
 			return "waves";
 		}
 		default:
-			throw new Error("Unrecognized crypto " + symbol);
+			return null;
 	}
 }
