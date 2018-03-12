@@ -111,6 +111,7 @@ const generateSymbolHistory = async (symbol: CRYPTO_SYMBOL) => {
 
 (async () => {
 	try {
+
 		const currencyHistoryFunctions: any = [];
 		for (const currency in CRYPTO_SYMBOL) {
 			const idCurrency: string = getCurrencyIDBySymbol(currency as CRYPTO_SYMBOL);
