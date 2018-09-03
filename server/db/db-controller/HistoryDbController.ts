@@ -6,7 +6,7 @@
 //  Created   : 10.3.18 22.13
 //
 
-import {DBController, IOptionsDB} from "imx-db-adapter";
+import {DBController, IOptionsDB} from "lab-db-adapter";
 import {CRYPTO_SYMBOL} from "../../domen/crypto-currency/CurrencySymbol";
 import {HistoryDay} from "../../domen/history";
 import {DbControllersFactory} from "./DbControllersFactory";

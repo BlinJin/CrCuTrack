@@ -5,7 +5,7 @@
 //  Author    : Uladzimir Akulenka
 //  Created   : 4.3.18 2.50
 //
-import {isPresent} from "imx-lang";
+import {isPresent} from "lab-lang";
 import {CRYPTO_SYMBOL} from "../crypto-currency";
 import {ITransaction} from "./ITransaction";
 import {OPERATION_TYPE} from "./OperationType";

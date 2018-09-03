@@ -1,6 +1,6 @@
 import * as http from "http";
 import * as net from "net";
-import {ISystemLogger, ModeLogger, SystemLogger} from "imx-logger";
+import {ISystemLogger, ModeLogger, SystemLogger} from "lab-logger";
 import * as os from "os";
 import {ServerApplication} from "./ServerApplication";
 import ErrnoException = NodeJS.ErrnoException;
@@ -57,7 +57,7 @@ export class Server {
     }
 
     public address(): IServerAddress {
-        return this.provider.address();
+        return this.provider.address() as IServerAddress;
     }
 
     private configure(config: ServerOptions = new ServerOptions({} as IServerOptions)): this {
@@ -86,7 +86,7 @@ export class Server {
     }
 
     private lookupHandler(): void {
-        const addressObject: IServerAddress = this.provider.address();
+        const addressObject: IServerAddress =  this.provider.address() as IServerAddress;
         syslog.info(`${process.pid} listening on  http://${addressObject.address}:` +
             `${addressObject.port} in ${process.platform}.`);
     }

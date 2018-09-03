@@ -5,7 +5,7 @@
 //  Author    : Uladzimir Akulenka
 //  Created   : 4.3.18 2.49
 //
-import {DBController, IOptionsDB} from "imx-db-adapter";
+import {DBController, IOptionsDB} from "lab-db-adapter";
 import {ITransaction} from "../../domen/operations";
 
 export class TransactionDbController extends DBController<ITransaction> {

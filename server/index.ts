@@ -1,6 +1,6 @@
 
 import * as Bluebird from "bluebird";
-import {ISystemLogger, ModeLogger, SystemLogger} from "imx-logger";
+import {ISystemLogger, ModeLogger, SystemLogger} from "lab-logger";
 
 import {Server, ServerOptions} from "./Server";
 import {ServerApplication} from "./ServerApplication";

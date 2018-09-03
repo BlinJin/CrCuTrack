@@ -1,7 +1,7 @@
 import {CurrencyWalletDbController} from "./CurrencyWalletDbController";
 import {DBKey} from "./DBKey";
-import {DBController, IOptionsDB} from "imx-db-adapter";
-import {buildPath} from "imx-fs";
+import {DBController, IOptionsDB} from "lab-db-adapter";
+import {buildPath} from "lab-fs";
 import {HistoryDbController} from "./HistoryDbController";
 import {TransactionDbController} from "./TransactionDbController";
 
