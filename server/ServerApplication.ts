@@ -1,10 +1,10 @@
-import {ISystemLogger, ModeLogger, SystemLogger} from "imx-logger";
+import {ISystemLogger, ModeLogger, SystemLogger} from "lab-logger";
 import * as express from "express";
 import * as net from "net";
 import * as bodyParser from "body-parser";
 import * as compression from "compression";
 import {Stats} from "fs";
-import {buildPath} from "imx-fs";
+import {buildPath} from "lab-fs";
 import {CurrencyWatcher} from "./controller/currency-watcher";
 
 const syslog: ISystemLogger = new SystemLogger({

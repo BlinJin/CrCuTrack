@@ -1,7 +1,7 @@
-import {readFile} from "imx-fs";
-import {isBlank} from "imx-lang";
-import {DBController, QueryDB} from "imx-db-adapter";
-import {IConfigLogger, ISystemLogger, ModeLogger, SystemLogger} from "imx-logger";
+import {readFile} from "lab-fs";
+import {isBlank} from "lab-lang";
+import {DBController, QueryDB} from "lab-db-adapter";
+import {IConfigLogger, ISystemLogger, ModeLogger, SystemLogger} from "lab-logger";
 import * as util from "util";
 import {CurrencyWallet} from "../../domen/crypto-currency/CurrencyWallet";
 import {ITransaction, Transaction} from "../../domen/operations";

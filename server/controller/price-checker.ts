@@ -7,7 +7,7 @@ import chalk from "chalk";
 //  Created   : 6.3.18 1.19
 //
 import {CurrencyWatcher} from "./currency-watcher";
-import {ISystemLogger, ModeLogger, SystemLogger} from "imx-logger";
+import {ISystemLogger, ModeLogger, SystemLogger} from "lab-logger";
 import {Observable} from "rxjs/Observable";
 import {Subject} from "rxjs/Rx";
 import {ICryptoCurrency} from "../domen/crypto-currency";

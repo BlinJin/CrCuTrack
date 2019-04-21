@@ -5,7 +5,7 @@
 //  Author    : Uladzimir Akulenka
 //  Created   : 9.3.18 0.19
 //
-import {isPresent} from "imx-lang";
+import {isPresent} from "lab-lang";
 import {CRYPTO_SYMBOL} from "../crypto-currency/CurrencySymbol";
 
 export class HistoryDay {

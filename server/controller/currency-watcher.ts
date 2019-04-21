@@ -1,5 +1,5 @@
 import chalk from "chalk";
-import {ISystemLogger, ModeLogger, SystemLogger} from "imx-logger";
+import {ISystemLogger, ModeLogger, SystemLogger} from "lab-logger";
 import fetch from "node-fetch";
 import * as util from "util";
 import {CryptoCurrency, ICryptoCurrency} from "../domen/crypto-currency/index";

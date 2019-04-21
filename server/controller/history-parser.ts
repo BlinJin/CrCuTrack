@@ -6,8 +6,8 @@
 //  Created   : 8.3.18 1.52
 //
 
-import {isPresent} from "imx-lang";
-import {ISystemLogger, ModeLogger, SystemLogger} from "imx-logger";
+import {isPresent} from "lab-lang";
+import {ISystemLogger, ModeLogger, SystemLogger} from "lab-logger";
 import fetch from "node-fetch";
 import * as util from "util";
 import * as zlib from "zlib";
