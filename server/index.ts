@@ -1,6 +1,6 @@
 
 import * as Bluebird from "bluebird";
-import {ISystemLogger, ModeLogger, SystemLogger} from "imx-logger";
+import {ISystemLogger, ModeLogger, SystemLogger} from "lab-logger";
 
 import {Server, ServerOptions} from "./Server";
 import {ServerApplication} from "./ServerApplication";
@@ -21,13 +21,17 @@ const syslog: ISystemLogger = new SystemLogger({
     section: "root:bootstrap"
 });
 
-(async function main(args: Array<string>, argc: number): Promise<number> {
-	try {
-		await Server.bootstrap(new ServerApplication(), config);
-		syslog.info(`Server Bootstrap Done`);
-		return 0;
-	} catch (err) {
-		syslog.error(err);
-		process.exit(1);
-	}
-})(process.argv, process.argv.length);
+const main = async (args: Array<string>, argc: number): Promise<number> => {
+    try {
+        await Server.bootstrap(new ServerApplication(), config);
+        syslog.info(`Server Bootstrap Done`);
+        return 0;
+    } catch (err) {
+        syslog.error(err);
+        process.exit(1);
+    }
+};
+
+main(process.argv, process.argv.length).then(() => {
+    syslog.info("CC Tracker started");
+}).catch(err => syslog.info(err));
