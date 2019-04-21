@@ -105,7 +105,7 @@ const generateSymbolHistory = async (symbol: CRYPTO_SYMBOL) => {
 	// 	// logger.info(util.inspect(elem,
 	// 	// 	{colors: true, depth: 4, showHidden: true}));
 	// });
-	dbHistoryController.insert(result);
+	dbHistoryController.insert(result as any);
 	console.timeEnd(symbol);
 }
 
