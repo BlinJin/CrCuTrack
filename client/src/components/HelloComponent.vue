@@ -13,5 +13,5 @@
 </script>
 <style lang="stylus" scoped>
     h1
-        color red
+        color blue
 </style>
