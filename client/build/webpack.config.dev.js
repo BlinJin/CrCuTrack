@@ -1,6 +1,12 @@
 'use strict'
 const { VueLoaderPlugin } = require("vue-loader");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const path = require('path');
+
+function resolve (dir) {
+    return path.join(__dirname, '..', dir)
+}
 
 module.exports = {
     mode: 'development',
@@ -31,7 +37,12 @@ module.exports = {
             {
                 test: /\.js$/,
                 use: 'babel-loader'
-            }
+            },
+            // {
+            //     test: /\.(js|vue)$/,
+            //     use: 'eslint-loader',
+            //     enforce: 'pre'
+            // }
         ]
     },
     plugins: [
@@ -40,6 +51,11 @@ module.exports = {
             filename: "index.html",
             template: "index.html",
             inject: true
-        })
+        }),
+        new CopyWebpackPlugin([{
+            from: resolve('static/img'),
+            to: resolve('dist/static/img'),
+            toType: 'dir'
+        }])
     ]
 };
